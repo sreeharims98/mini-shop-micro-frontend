@@ -1,0 +1,78 @@
+/* Store fascia; colour tokens come from .page in App.module.css. */
+.fascia {
+  padding: 1.25rem clamp(1rem, 4vw, 2rem) 1rem;
+  border-bottom: 0.5rem solid var(--ticket);
+  background: var(--ink);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-weight: 700;
+  font-stretch: 80%;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.brand {
+  color: #fff;
+  text-decoration: none;
+}
+
+.search {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 28rem;
+  padding: 0.55em 0.8em;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.search::placeholder {
+  color: var(--muted);
+}
+
+.cart {
+  padding: 0.5em 1em;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cart:hover,
+.cart[aria-current="page"] {
+  border-color: var(--ticket);
+  background: var(--ticket);
+  color: var(--ink);
+}
+
+.brand:focus-visible,
+.search:focus-visible,
+.cart:focus-visible {
+  outline: 3px solid var(--ticket);
+  outline-offset: 2px;
+}
+
+@media (max-width: 30rem) {
+  .bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .search {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    max-width: none;
+  }
+}

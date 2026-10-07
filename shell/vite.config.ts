@@ -17,6 +17,11 @@ export default defineConfig({
           name: "products",
           entry: "http://localhost:3001/remoteEntry.js",
         },
+        cart: {
+          type: "module",
+          name: "cart",
+          entry: "http://localhost:3004/remoteEntry.js",
+        },
       },
       shared: {
         react: { singleton: true },
