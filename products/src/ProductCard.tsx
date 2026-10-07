@@ -1,23 +1,20 @@
+import type { Product } from "../../shared/types";
 import styles from "./ProductCard.module.css";
-
-export type Product = {
-  id: number;
-  title: string;
-  description: string;
-  category: string;
-  brand?: string;
-  price: number;
-  rating: number;
-  availabilityStatus: string;
-  thumbnail: string;
-};
 
 const usd = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  inCart,
+  addToCart,
+}: {
+  product: Product;
+  inCart: boolean;
+  addToCart?: (product: Product) => void;
+}) {
   return (
     <li className={styles.card}>
       <img
@@ -41,7 +38,13 @@ export default function ProductCard({ product }: { product: Product }) {
         <span>{product.availabilityStatus}</span>
       </p>
       <p className={styles.price}>{usd.format(product.price)}</p>
-      <button className={styles.add}>Add to Cart</button>
+      {/* Stays clickable once added: another click adds one more. */}
+      <button
+        className={inCart ? `${styles.add} ${styles.added}` : styles.add}
+        onClick={() => addToCart?.(product)}
+      >
+        {inCart ? "Added to Cart" : "Add to Cart"}
+      </button>
     </li>
   );
 }

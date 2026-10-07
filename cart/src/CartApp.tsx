@@ -1,33 +1,38 @@
-import { useState } from "react";
+import type { CartItem } from "../../shared/types";
 import CartList from "./CartList";
-import type { CartItem } from "./CartList";
 import { usd } from "./usd";
 import styles from "./CartApp.module.css";
 
-// Mock cart contents until the cart is wired to real state.
-const mockItems: CartItem[] = [
-  { id: 1, name: "MacBook Pro", price: 2000, quantity: 1 },
-  { id: 2, name: "iPhone", price: 1000, quantity: 2 },
-];
-
-export default function CartApp() {
-  const [items, setItems] = useState(mockItems);
-  const total = items.reduce(
+// Cart state lives in the shell; every prop is optional so the cart also runs standalone (empty).
+export default function CartApp({
+  products = [],
+  onQuantityChange = () => {},
+  onRemove = () => {},
+}: {
+  products?: CartItem[];
+  onQuantityChange?: (id: number, quantity: number) => void;
+  onRemove?: (id: number) => void;
+}) {
+  const total = products.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
   );
-
-  function setQuantity(id: number, quantity: number) {
-    setItems(
-      items.map((item) => (item.id === id ? { ...item, quantity } : item)),
-    );
-  }
 
   return (
     <div className={styles.shelf}>
       <h2 className={styles.heading}>Cart</h2>
 
-      <CartList items={items} onQuantityChange={setQuantity} />
+      <CartList
+        items={products}
+        onQuantityChange={onQuantityChange}
+        onRemove={onRemove}
+      />
+
+      {products.length === 0 && (
+        <p className={styles.empty}>
+          Your cart is empty. Add a product to see it here.
+        </p>
+      )}
 
       <div className={styles.total}>
         <p className={styles.name}>Total</p>

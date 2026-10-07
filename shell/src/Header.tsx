@@ -3,6 +3,7 @@ import styles from "./Header.module.css";
 
 export default function Header(props: {
   query: string;
+  cartCount: number;
   onQueryChange: (query: string) => void;
 }) {
   return (
@@ -23,7 +24,7 @@ export default function Header(props: {
         />
         {/* NavLink sets aria-current="page" on the cart route; the stylesheet keys off it. */}
         <NavLink to="/cart" className={styles.cart}>
-          Cart
+          {props.cartCount > 0 ? `Cart (${props.cartCount})` : "Cart"}
         </NavLink>
       </div>
     </header>

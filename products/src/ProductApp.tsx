@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import type { Product } from "./ProductCard";
+import type { Product } from "../../shared/types";
 import styles from "./ProductApp.module.css";
 
-export default function ProductApp({ query = "" }: { query?: string }) {
+export default function ProductApp({
+  query = "",
+  cartIds = [],
+  addToCart,
+}: {
+  query?: string;
+  cartIds?: number[];
+  addToCart?: (product: Product) => void;
+}) {
   const [products, setProducts] = useState<Product[]>();
   const [failed, setFailed] = useState(false);
 
@@ -35,7 +43,12 @@ export default function ProductApp({ query = "" }: { query?: string }) {
 
       <ul className={styles.grid}>
         {matches?.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            inCart={cartIds.includes(product.id)}
+            addToCart={addToCart}
+          />
         ))}
       </ul>
 
@@ -45,9 +58,7 @@ export default function ProductApp({ query = "" }: { query?: string }) {
           page.
         </p>
       )}
-      {!failed && !matches && (
-        <p className={styles.empty}>Loading products…</p>
-      )}
+      {!failed && !matches && <p className={styles.empty}>Loading products…</p>}
       {matches?.length === 0 && (
         <p className={styles.empty}>
           No products match “{search}”. Try a shorter search.

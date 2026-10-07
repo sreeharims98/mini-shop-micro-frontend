@@ -22,18 +22,68 @@
 
 .line {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 6rem 1fr auto auto auto;
   align-items: center;
   gap: 0.75rem 1.25rem;
   padding: 1.25rem 0;
   border-top: 1px solid var(--rule);
 }
 
+.image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: #fff;
+  object-fit: contain;
+}
+
+.details {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.brand {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.description {
+  display: -webkit-box;
+  max-width: 60ch;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.9375rem;
+  color: var(--muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
 .name {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
+  line-height: 1.15;
   letter-spacing: -0.01em;
+}
+
+.details .name {
+  font-size: 1.375rem;
 }
 
 .quantity {
@@ -68,6 +118,13 @@
   font-variant-numeric: tabular-nums;
 }
 
+.empty {
+  margin: 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+}
+
 /* Heavier rule marks the sum line. */
 .total {
   display: grid;
@@ -91,6 +148,27 @@
   cursor: pointer;
 }
 
+.remove {
+  padding: 0.35em 0.7em;
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove:hover {
+  background: var(--ink);
+  color: #fff;
+}
+
+.remove:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
 .checkout:hover {
   background: transparent;
   color: var(--ink);
@@ -106,11 +184,20 @@
 }
 
 @media (max-width: 30rem) {
+  /* Phone: image beside details, then quantity, price and Remove on a second row. */
   .line {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 4.5rem 1fr auto auto;
   }
 
-  .line .name {
-    grid-column: 1 / -1;
+  .details {
+    grid-column: 2 / -1;
+  }
+
+  .quantity {
+    grid-column: 1 / 3;
+  }
+
+  .description {
+    display: none;
   }
 }

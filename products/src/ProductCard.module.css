@@ -76,7 +76,8 @@
   cursor: pointer;
 }
 
-.add:hover {
+.add:hover,
+.added {
   background: transparent;
   color: var(--ink);
 }
