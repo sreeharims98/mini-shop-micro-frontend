@@ -1,0 +1,17 @@
+{
+  "name": "mini-shop",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix shell install && npm --prefix products install && npm --prefix cart install",
+    "dev": "concurrently -n shell,products,cart -c blue,green,yellow \"npm --prefix shell run dev\" \"npm --prefix products run dev\" \"npm --prefix cart run dev\"",
+    "lint": "npm --prefix shell run lint && npm --prefix products run lint && npm --prefix cart run lint",
+    "typecheck": "npm --prefix shell exec -- tsc -b shell && npm --prefix products exec -- tsc -b products && npm --prefix cart exec -- tsc -b cart",
+    "build": "npm --prefix shell run build && npm --prefix products run build && npm --prefix cart run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  },
+  "overrides": {
+    "shell-quote": "^1.12.0"
+  }
+}
